@@ -1,1 +1,66 @@
 
+version: '3.8'
+services:
+  hardhat:
+    image: node:18
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    command: sh -c "cd smart-contracts && npm install --no-audit --no-fund && npx hardhat node --hostname 0.0.0.0"
+    ports:
+      - "8545:8545"
+    networks:
+      - autotech-net
+
+  ipfs:
+    image: ipfs/go-ipfs:latest
+    ports:
+      - "5001:5001"
+      - "4001:4001"
+      - "8080:8080"
+    networks:
+      - autotech-net
+
+  backend:
+    image: node:18
+    working_dir: /workspace/backend
+    volumes:
+      - ./backend:/workspace/backend
+    environment:
+      - ORCHESTRATOR_PORT=4000
+    command: sh -c "cd /workspace/backend && npm install --no-audit --no-fund && npm run start"
+    ports:
+      - "4000:4000"
+    networks:
+      - autotech-net
+    depends_on:
+      - hardhat
+      - ipfs
+
+  frontend:
+    image: node:18
+    working_dir: /workspace/frontend
+    volumes:
+      - ./frontend:/workspace/frontend
+    environment:
+      - NEXT_PUBLIC_API_BASE=http://backend:4000
+    command: sh -c "cd /workspace/frontend && npm install --no-audit --no-fund && npm run dev"
+    ports:
+      - "3000:3000"
+    networks:
+      - autotech-net
+    depends_on:
+      - backend
+
+  wasm-sandbox:
+    image: rust:1.70-slim
+    working_dir: /workspace/wasm-sandbox
+    volumes:
+      - ./wasm-sandbox:/workspace/wasm-sandbox
+    command: sh -c "sleep infinity"
+    networks:
+      - autotech-net
+
+networks:
+  autotech-net:
+    driver: bridge
