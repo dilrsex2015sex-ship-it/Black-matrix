@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Global Styles
+   ============================================ */
+
+:root {
+  --primary: #0066CC;
+  --primary-light: #3399FF;
+  --primary-dark: #004499;
+  
+  --accent: #00D084;
+  --neon-cyan: #00FFFF;
+  
+  --bg-dark: #0F0F15;
+  --bg-dark-secondary: #191B22;
+  
+  --text-dark-primary: #1C1B1F;
+  --text-dark-secondary: #49454E;
+  --text-light-primary: #E0E0E0;
+  
+  --success: #00D084;
+  --warning: #FFB835;
+  --error: #FF6B6B;
+  --info: #0066CC;
+}
+
+[data-theme="dark"] {
+  --bg-primary: var(--bg-dark);
+  --bg-secondary: var(--bg-dark-secondary);
+  --text-primary: var(--text-light-primary);
+  --text-secondary: #B0B0B0;
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] {
+  --bg-primary: #FFFBFE;
+  --bg-secondary: #F5F7FA;
+  --text-primary: var(--text-dark-primary);
+  --text-secondary: var(--text-dark-secondary);
+  --border: #E0E5EC;
+}
+
+* {
+  @apply transition-colors duration-300;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-[var(--bg-primary)] text-[var(--text-primary)];
+  font-family: 'Inter', sans-serif;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-[var(--text-primary)];
+  letter-spacing: -0.5px;
+}
+
+h1 {
+  @apply text-h1;
+}
+
+h2 {
+  @apply text-h2;
+}
+
+h3 {
+  @apply text-h3;
+}
+
+h4 {
+  @apply text-h4;
+}
+
+p {
+  @apply text-body text-[var(--text-secondary)];
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn {
+  @apply px-6 py-3 rounded-md font-semibold transition-all duration-300;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+  @apply bg-gradient-to-r from-primary to-primary-light text-white;
+  @apply hover:shadow-lg hover:-translate-y-0.5;
+  @apply active:translate-y-0 active:shadow-md;
+  box-shadow: 0 8px 16px rgba(0, 102, 204, 0.3);
+}
+
+.btn-secondary {
+  @apply bg-accent text-white;
+  @apply hover:shadow-lg hover:-translate-y-0.5;
+}
+
+.btn-ghost {
+  @apply bg-transparent border border-[var(--border)] text-[var(--text-primary)];
+  @apply hover:bg-[var(--bg-secondary)];
+}
+
+.btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* ============================================
+   Cards
+   ============================================ */
+
+.card {
+  @apply rounded-2xl p-6 backdrop-blur-lg;
+  background: rgba(25, 27, 34, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    8px 8px 24px rgba(0, 0, 0, 0.2),
+    -8px -8px 24px rgba(255, 255, 255, 0.05),
+    0 4px 30px rgba(0, 0, 0, 0.15);
+  @apply transition-all duration-300;
+}
+
+.card:hover {
+  @apply -translate-y-1;
+  box-shadow:
+    12px 12px 32px rgba(0, 0, 0, 0.3),
+    -8px -8px 24px rgba(255, 255, 255, 0.08),
+    0 8px 40px rgba(0, 102, 204, 0.15);
+}
+
+.card-light {
+  @apply bg-[var(--bg-secondary)] border-[var(--border)];
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   Forms
+   ============================================ */
+
+input, select, textarea {
+  @apply w-full px-4 py-3 rounded-lg bg-[var(--bg-secondary)] text-[var(--text-primary)];
+  @apply border-2 border-[var(--border)] transition-all duration-300;
+  @apply focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20;
+}
+
+input::placeholder {
+  @apply text-[var(--text-secondary)];
+}
+
+label {
+  @apply block mb-2 text-sm font-semibold text-[var(--text-primary)];
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Utilities
+   ============================================ */
+
+.glass {
+  @apply backdrop-blur-lg;
+  background: rgba(25, 27, 34, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.glass-light {
+  @apply backdrop-blur-lg;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.shadow-neumorph {
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.2),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-glass {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.transition-smooth {
+  @apply transition-all duration-300 ease-smooth;
+}
+
+.truncate-multiline {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================================
+   Responsive Utilities
+   ============================================ */
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    @apply hidden;
+  }
+}
+
+@media (min-width: 769px) {
+  .show-mobile-only {
+    @apply hidden;
+  }
+}
+
+/* ============================================
+   Dark Mode Specific
+   ============================================ */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  * {
+    @apply border-2;
+  }
+}
