@@ -34,3 +34,4 @@ curl -X POST http://localhost:4000/product/beam -H "Content-Type: application/js
 المساعدة
 - لو واجهت أي خطأ أثناء الخطوات أعلاه انسخ رسالة الخطأ هنا.
 - بعد ما تنشئ README اكتب "تم" وسأرسلك الملف التالي.
+docker-compose
